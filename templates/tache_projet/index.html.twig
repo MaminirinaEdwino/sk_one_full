@@ -1,0 +1,47 @@
+{% extends 'DashBoard.html.twig' %}
+
+{% block title %}TacheProjet index{% endblock %}
+
+{% block body %}
+    <h1>TacheProjet index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Snom</th>
+                <th>Status</th>
+                <th>DateDebut</th>
+                <th>DateFin</th>
+                <th>DateCreation</th>
+                <th>DateAchevement</th>
+                <th>Achevement</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tache_projet in tache_projets %}
+            <tr>
+                <td>{{ tache_projet.id }}</td>
+                <td>{{ tache_projet.snom }}</td>
+                <td>{{ tache_projet.status }}</td>
+                <td>{{ tache_projet.dateDebut ? tache_projet.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ tache_projet.dateFin ? tache_projet.dateFin|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ tache_projet.dateCreation ? tache_projet.dateCreation|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ tache_projet.dateAchevement ? tache_projet.dateAchevement|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ tache_projet.achevement }}</td>
+                <td>
+                    <a href="{{ path('app_tache_projet_show', {'id': tache_projet.id}) }}">show</a>
+                    <a href="{{ path('app_tache_projet_edit', {'id': tache_projet.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_tache_projet_new') }}">Create new</a>
+{% endblock %}

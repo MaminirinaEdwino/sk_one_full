@@ -1,0 +1,50 @@
+{% extends 'DashBoard.html.twig' %}
+
+{% block title %}TacheProjet{% endblock %}
+
+{% block body %}
+    <h1>TacheProjet</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ tache_projet.id }}</td>
+            </tr>
+            <tr>
+                <th>Snom</th>
+                <td>{{ tache_projet.snom }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ tache_projet.status }}</td>
+            </tr>
+            <tr>
+                <th>DateDebut</th>
+                <td>{{ tache_projet.dateDebut ? tache_projet.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DateFin</th>
+                <td>{{ tache_projet.dateFin ? tache_projet.dateFin|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DateCreation</th>
+                <td>{{ tache_projet.dateCreation ? tache_projet.dateCreation|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DateAchevement</th>
+                <td>{{ tache_projet.dateAchevement ? tache_projet.dateAchevement|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Achevement</th>
+                <td>{{ tache_projet.achevement }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_tache_projet_index') }}">back to list</a>
+
+    <a href="{{ path('app_tache_projet_edit', {'id': tache_projet.id}) }}">edit</a>
+
+    {{ include('tache_projet/_delete_form.html.twig') }}
+{% endblock %}

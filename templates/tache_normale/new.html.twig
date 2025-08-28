@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New TacheNormale{% endblock %}
+
+{% block body %}
+    <h1>Create new TacheNormale</h1>
+
+    {{ include('tache_normale/_form.html.twig') }}
+
+    <a href="{{ path('app_tache_normale_index') }}">back to list</a>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit TacheNormale{% endblock %}
+
+{% block body %}
+    <h1>Edit TacheNormale</h1>
+
+    {{ include('tache_normale/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_tache_normale_index') }}">back to list</a>
+
+    {{ include('tache_normale/_delete_form.html.twig') }}
+{% endblock %}

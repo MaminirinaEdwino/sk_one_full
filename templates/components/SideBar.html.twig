@@ -1,0 +1,167 @@
+<ul{{ attributes }} class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-laugh-wink"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item active">
+        <a class="nav-link" href="{{ path('app_redirection') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Travailles 
+    </div>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEmployee"
+            aria-expanded="true" aria-controls="collapseEmployee">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Employées</span>
+        </a>
+        <div id="collapseEmployee" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Onglet Employées</h6>
+                <a class="collapse-item" href="{{ path('app_employee_index') }}">Liste</a>
+                <a class="collapse-item" href="{{ path('app_employee_new') }}">Nouveau</a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUser"
+            aria-expanded="true" aria-controls="collapseUser">
+            <i class="fas fa-fw fa-user-circle"></i>
+            <span>Compte Utilisateur</span>
+        </a>
+        <div id="collapseUser" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Utilisateur</h6>
+                <a class="collapse-item" href="{{ path('app_user_index') }}">Liste</a>
+                <a class="collapse-item" href="{{ path('app_register') }}">Nouveau</a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePostes"
+            aria-expanded="true" aria-controls="collapsePostes">
+            <i class="fas fa-fw fa-user"></i>
+            <span>Postes</span>
+        </a>
+        <div id="collapsePostes" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Postes</h6>
+                <a class="collapse-item" href="{{ path('app_poste_index') }}">Liste</a>
+                <a class="collapse-item" href="{{ path('app_poste_new') }}">Nouveau</a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBu"
+            aria-expanded="true" aria-controls="collapseBu">
+            <i class="fas fa-fw fa-puzzle-piece"></i>
+            <span>BU</span>
+        </a>
+        <div id="collapseBu" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">BU</h6>
+                <a class="collapse-item" href="{{ path('app_b_u_index') }}">Liste</a>
+                <a class="collapse-item" href="{{ path('app_b_u_new') }}">Nouveau</a>
+            </div>
+        </div>
+    </li>
+
+
+    <!-- Nav Item - Utilities Collapse Menu -->
+    
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Projets et tâches
+    </div>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProjet"
+            aria-expanded="true" aria-controls="collapseProjet">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>Projets</span>
+        </a>
+        <div id="collapseProjet" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Menu Projet</h6>
+                <a class="collapse-item" href="{{ path('app_projet_index') }}">Liste</a>
+                <a class="collapse-item" href="{{ path('app_projet_new') }}">Nouveau</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTache"
+            aria-expanded="true" aria-controls="collapseTache">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>Tâche </span>
+        </a>
+        <div id="collapseTache" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Menu des Tâches</h6>
+                <a class="collapse-item" href="{{ path('app_tache_projet_index') }}">Liste</a>
+                <a class="collapse-item" href="{{ path('app_tache_projet_new') }}">Nouveau</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEquipe"
+            aria-expanded="true" aria-controls="collapseEquipe">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Equipes </span>
+        </a>
+        <div id="collapseEquipe" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Menu des équipes</h6>
+                <a class="collapse-item" href="{{ path('app_equipe_index') }}">Liste</a>
+                <a class="collapse-item" href="{{ path('app_equipe_new') }}">Nouveau</a>
+            </div>
+        </div>
+    </li>
+    <!-- Nav Item - Charts -->
+    <li class="nav-item">
+        <a class="nav-link" href="charts.html">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Charts</span></a>
+    </li>
+
+    <!-- Nav Item - Tables -->
+    <li class="nav-item">
+        <a class="nav-link" href="tables.html">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Tables</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+
+</ul>

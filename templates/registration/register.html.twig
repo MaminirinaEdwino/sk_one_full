@@ -1,0 +1,62 @@
+{% extends 'DashBoard.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <h1>Ajouter Utilisateur</h1>
+
+    {{ form_errors(registrationForm) }}
+
+    {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.email, { 
+            attr: {
+                'class': 'form-control'
+            },
+            lable_attr: {
+                'class': 'form-label mt-4'
+            } 
+        }) }}
+        {{ form_row(registrationForm.plainPassword, {
+            label: 'Password',
+            attr: {
+                'class': 'form-control'
+            },
+            label_attr: {
+                'class': 'form-label mt-4'
+            }
+        }) }}
+        {{
+            form_row(registrationForm.employee, {
+                row_attr:{
+                    'class': 'mt-4 mb-4'
+                },
+                attr:{
+                    'class': 'form-control'
+                }
+            })
+        }}
+        {{ form_row(registrationForm.roles, {
+            attr: {
+                class: 'form-control'
+            },
+            lable_attr: {
+                class: 'form-label mt-4'
+            }
+        }) }}
+        <div class="form-check mt-4 mb-4">
+            {{ form_widget(registrationForm.agreeTerms, {
+                attr: {
+                    class: 'form-check-input'
+                }
+            }) }}
+            {{ form_label(registrationForm.agreeTerms, null, {
+                label_attr: {
+                    class: 'form-check-label'
+                }
+            }) }}
+        </div>
+        
+
+        <button type="submit" class="btn btn-primary">Register</button>
+    {{ form_end(registrationForm) }}
+{% endblock %}

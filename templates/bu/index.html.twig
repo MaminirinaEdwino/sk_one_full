@@ -1,0 +1,35 @@
+{% extends 'DashBoard.html.twig' %}
+
+{% block title %}BU index{% endblock %}
+
+{% block body %}
+    <h1>BU index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for b_u in b_us %}
+            <tr>
+                <td>{{ b_u.id }}</td>
+                <td>{{ b_u.nom }}</td>
+                <td>
+                    <a href="{{ path('app_b_u_show', {'id': b_u.id}) }}">show</a>
+                    <a href="{{ path('app_b_u_edit', {'id': b_u.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {# <a href="{{ path('app_b_u_new') }}">Create new</a> #}
+{% endblock %}

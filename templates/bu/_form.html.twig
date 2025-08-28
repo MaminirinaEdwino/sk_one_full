@@ -1,0 +1,19 @@
+{{ form_start(form) }}
+    {{ form_row(form.nom, {
+        attr: {
+            class: 'form-control'
+        },
+        row_attr: {
+            class: 'mb-4'
+        }
+    }) }}
+    {{ form_row(form.manager, {
+        attr: {
+            class: 'form-control'
+        },
+        row_attr: {
+            class: 'mb-4'
+        }
+    }) }}
+    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
