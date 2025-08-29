@@ -3,9 +3,17 @@
 {% block title %}New Projet{% endblock %}
 
 {% block body %}
-    <h1>Nouveau Projet</h1>
+    <div class="card shadow">
+        <div class="card-header">
+            Nouveau Projet
+        </div>
+        <div class="card-body">
+            {{ include('projet/_form.html.twig') }}
+        </div>
+    </div>
+    {# <h1>Nouveau Projet</h1> #}
 
-    {{ include('projet/_form.html.twig') }}
+    
 
     {# <a href="{{ path('app_projet_index') }}">back to list</a> #}
 {% endblock %}

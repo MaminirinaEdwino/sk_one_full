@@ -25,7 +25,7 @@ class TacheProjet
     #[ORM\ManyToOne(inversedBy: 'tacheProjets')]
     private ?User $assignant = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?\DateTime $dateDebut = null;
 
     #[ORM\Column]
@@ -37,7 +37,7 @@ class TacheProjet
     #[ORM\Column(nullable: true)]
     private ?\DateTime $dateAchevement = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable:true)]
     private ?string $achevement = null;
 
     #[ORM\ManyToOne(inversedBy: 'tacheProjets')]

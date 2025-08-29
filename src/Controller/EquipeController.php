@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Equipe;
+use App\Entity\MembreEquipe;
 use App\Form\EquipeType;
+use App\Form\MembreEquipeType;
 use App\Repository\EquipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,6 +19,7 @@ final class EquipeController extends AbstractController
     #[Route(name: 'app_equipe_index', methods: ['GET'])]
     public function index(EquipeRepository $equipeRepository): Response
     {
+
         return $this->render('equipe/index.html.twig', [
             'equipes' => $equipeRepository->findAll(),
         ]);
@@ -45,8 +48,12 @@ final class EquipeController extends AbstractController
     #[Route('/{id}', name: 'app_equipe_show', methods: ['GET'])]
     public function show(Equipe $equipe): Response
     {
+        $membres = new MembreEquipe();
+        $membres->setEquipe($equipe);
+        $form = $this->createForm(MembreEquipeType::class, $membres);
         return $this->render('equipe/show.html.twig', [
             'equipe' => $equipe,
+            'form'=>$form
         ]);
     }
 

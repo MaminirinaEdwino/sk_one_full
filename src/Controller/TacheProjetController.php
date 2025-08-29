@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Projet;
 use App\Entity\TacheProjet;
 use App\Form\TacheProjetType;
 use App\Repository\TacheProjetRepository;
@@ -30,6 +31,8 @@ final class TacheProjetController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $tacheProjet->setStatus('A faire');
+            $tacheProjet->setDateCreation(new \DateTime('now'));
             $entityManager->persist($tacheProjet);
             $entityManager->flush();
 
@@ -41,6 +44,30 @@ final class TacheProjetController extends AbstractController
             'form' => $form,
         ]);
     }
+    #[Route('/new/{projet}', name: 'app_tache_projet_new_projet', methods: ['POST'])]
+    public function newprojet(Request $request, EntityManagerInterface $entityManager,  Projet $projet): Response
+    {
+        $tacheProjet = new TacheProjet();
+        $tacheProjet->setProjet($projet);
+        $form = $this->createForm(TacheProjetType::class, $tacheProjet);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $tacheProjet->setStatus('A faire');
+            $tacheProjet->setDateCreation(new \DateTime('now'));
+            $entityManager->persist($tacheProjet);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_projet_show', ['id'=>$projet->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('tache_projet/new.html.twig', [
+            'tache_projet' => $tacheProjet,
+            'form' => $form,
+        ]);
+    }
+
+    
 
     #[Route('/{id}', name: 'app_tache_projet_show', methods: ['GET'])]
     public function show(TacheProjet $tacheProjet): Response

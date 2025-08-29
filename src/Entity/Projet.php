@@ -33,7 +33,7 @@ class Projet
     #[ORM\Column]
     private ?bool $archive = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable:true )]
     private ?\DateTime $dateDebut = null;
 
     #[ORM\Column]

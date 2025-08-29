@@ -6,6 +6,7 @@ use App\Entity\MembreEquipe;
 use App\Form\MembreEquipeType;
 use App\Repository\MembreEquipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Proxies\__CG__\App\Entity\Equipe;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,10 +23,11 @@ final class MembreEquipeController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_membre_equipe_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/new/{equipe}', name: 'app_membre_equipe_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager, Equipe $equipe): Response
     {
         $membreEquipe = new MembreEquipe();
+        $membreEquipe->setEquipe($equipe);
         $form = $this->createForm(MembreEquipeType::class, $membreEquipe);
         $form->handleRequest($request);
 
@@ -33,7 +35,7 @@ final class MembreEquipeController extends AbstractController
             $entityManager->persist($membreEquipe);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_membre_equipe_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_equipe_show', ['equipe'=>$equipe->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('membre_equipe/new.html.twig', [

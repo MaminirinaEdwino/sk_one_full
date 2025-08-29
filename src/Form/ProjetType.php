@@ -16,17 +16,48 @@ class ProjetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom')
+            ->add('nom', null, [
+                'attr'=>[
+                    'class'=>'form-control mb-3'
+                ],
+            ])
             // ->add('status_achevement')
             // ->add('archive')
-            ->add('dateDebut')
-            ->add('dateFin')
-            ->add('description', TextareaType::class)
+            // ->add('dateDebut')
+            ->add('dateFin', null, [
+                'label'=>"DeadLine",
+                'attr'=>[
+                    'class'=>'form-control mb-3'
+                ],
+                'label_attr'=>[
+                    'class'=>'form-label'
+                ],
+            ])
+            ->add('description', TextareaType::class, [
+                'attr'=>[
+                    'class'=>'form-control mb-3'
+                ],
+                'label_attr'=>[
+                    'class'=>'form-label'
+                ],
+            ])
             ->add('responsable', EntityType::class, [
+                'attr'=>[
+                    'class'=>'form-control mb-3'
+                ],
+                'label_attr'=>[
+                    'class'=>'form-label'
+                ],
                 'class' => User::class,
                 'choice_label' => fn(User $user)=> $user->getEmployee()->getNom().' '. $user->getEmployee()->getPrenom(),
             ])
             ->add('equipe', EntityType::class, [
+                'attr'=>[
+                    'class'=>'form-control mb-3'
+                ],
+                'label_attr'=>[
+                    'class'=>'form-label'
+                ],
                 'class' => Equipe::class,
                 'choice_label' => 'nom',
             ])

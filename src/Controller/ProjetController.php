@@ -52,11 +52,13 @@ final class ProjetController extends AbstractController
     public function show(Projet $projet): Response
     {
         $tache = new TacheProjet();
+        $listeMembre = $projet->getEquipe()->getMembreEquipes();
         $tache->setProjet($projet);
         $form = $this->createForm(TacheProjetType::class, $tache);
         return $this->render('projet/show.html.twig', [
             'projet' => $projet,
-            'form'=>$form
+            'form'=>$form,
+            'membreEquipe'=>$listeMembre
         ]);
     }
 

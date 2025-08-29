@@ -51,11 +51,33 @@
         <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
             aria-labelledby="alertsDropdown" style="padding: 5px 15px 5px 15px">
             <h6 class="dropdown-header">
-                Alerts Center
+                Ajouter une Tâche   
             </h6>
             <div class="form-group">
-                {{ form_start(form) }}
-                {{ form_row(form) }}
+                {{ form_start(form, {
+                    'attr': {
+                        'action': path('app_tache_projet_new_projet', {'projet': projet.id})
+                    }
+                })}}
+                {{ form_row(form.snom) }}
+                {# {{ form_row(form.dateDebut) }} #}
+                {{ form_row(form.dateFin) }}
+                {{ form_row(form.projet) }}
+                {{ form_row(form.assigne) }}
+                <!--
+                <div>
+                    <label for="tache_projet_assigne">Assigné à</label>
+                    <select id="tache_projet_assigne" name="tache_projet[assigne]" class="form-control mb-3">
+                        {# <option value="1">1</option> #}
+                        {% for row in membreEquipe %}
+                            <option value="{{ row.id }}">{{ row.membre.employee.nom }} {{ row.membre.employee.prenom }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                -->
+                
+                
+
                 <button class="btn btn-primary" type="submit">Ajouter</button>
                 {{ form_end(form) }}
             </div>
