@@ -3,10 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Projet;
+use App\Entity\TacheProjet;
 use App\Form\ProjetType;
+use App\Form\TacheProjetType;
 use App\Repository\ProjetRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -18,18 +21,21 @@ final class ProjetController extends AbstractController
     public function index(ProjetRepository $projetRepository): Response
     {
         return $this->render('projet/index.html.twig', [
-            'projets' => $projetRepository->findAll(),
+            'projets' => $projetRepository->findAll()
         ]);
     }
 
     #[Route('/new', name: 'app_projet_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, Security $security): Response
     {
         $projet = new Projet();
         $form = $this->createForm(ProjetType::class, $projet);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $projet->setAssignant($security->getUser());
+            $projet->setArchive(false);
+            $projet->setStatus('En attente'); 
             $entityManager->persist($projet);
             $entityManager->flush();
 
@@ -45,8 +51,12 @@ final class ProjetController extends AbstractController
     #[Route('/{id}', name: 'app_projet_show', methods: ['GET'])]
     public function show(Projet $projet): Response
     {
+        $tache = new TacheProjet();
+        $tache->setProjet($projet);
+        $form = $this->createForm(TacheProjetType::class, $tache);
         return $this->render('projet/show.html.twig', [
             'projet' => $projet,
+            'form'=>$form
         ]);
     }
 

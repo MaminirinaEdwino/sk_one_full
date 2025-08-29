@@ -24,7 +24,7 @@ class Projet
     #[ORM\ManyToOne(inversedBy: 'projets')]
     private ?Equipe $equipe = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $status_achevement = null;
 
     #[ORM\ManyToOne(inversedBy: 'projetAssigne')]

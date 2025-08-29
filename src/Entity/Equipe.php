@@ -18,8 +18,6 @@ class Equipe
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
-    #[ORM\Column(length: 255)]
-    private ?bool $disponible = null;
 
     /**
      * @var Collection<int, MembreEquipe>
@@ -32,6 +30,9 @@ class Equipe
      */
     #[ORM\OneToMany(targetEntity: Projet::class, mappedBy: 'equipe')]
     private Collection $projets;
+
+    #[ORM\Column]
+    private ?bool $disponible = null;
 
     public function __construct()
     {
@@ -52,18 +53,6 @@ class Equipe
     public function setNom(string $nom): static
     {
         $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getDisponible(): ?string
-    {
-        return $this->disponible;
-    }
-
-    public function setDisponible(bool $disponible): static
-    {
-        $this->disponible = $disponible;
 
         return $this;
     }
@@ -124,6 +113,18 @@ class Equipe
                 $projet->setEquipe(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isDisponible(): ?bool
+    {
+        return $this->disponible;
+    }
+
+    public function setDisponible(bool $disponible): static
+    {
+        $this->disponible = $disponible;
 
         return $this;
     }

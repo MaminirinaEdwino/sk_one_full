@@ -13,27 +13,55 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TacheProjetType extends AbstractType
 {
+    private $listeMembre = []; 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('snom')
-            ->add('status')
-            ->add('dateDebut')
-            ->add('dateFin')
-            ->add('dateCreation')
-            ->add('dateAchevement')
-            ->add('achevement')
+            ->add('snom', null, [
+                'label'=>'Nom',
+                'attr'=>[
+                    'class'=>'form-control mb-3'
+                ],
+                'label_attr'=>[
+                    'class'=>'form-label'
+                ],
+            ])
+            ->add('dateDebut', null, [
+                'attr'=>[
+                    'class'=>'form-control mb-3'
+                ],
+                'label_attr'=>[
+                    'class'=>'form-label'
+                ],
+            ])
+            ->add('dateFin', null, [
+                'attr'=>[
+                    'class'=>'form-control mb-3'
+                ],
+                'label_attr'=>[
+                    'class'=>'form-label'
+                ],
+            ])
             ->add('assigne', EntityType::class, [
                 'class' => MembreEquipe::class,
                 'choice_label' => 'id',
-            ])
-            ->add('assignant', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
+                'attr'=>[
+                    'class'=>'form-control mb-3'
+                ],
+                'label_attr'=>[
+                    'class'=>'form-label'
+                ],
+                'choices'=>fn(Projet $projet) => $projet->getEquipe()->getMembreEquipes(),
             ])
             ->add('projet', EntityType::class, [
                 'class' => Projet::class,
-                'choice_label' => 'id',
+                'choice_label' => 'nom',
+                'attr'=>[
+                    'class'=>'form-control mb-3'
+                ],
+                'label_attr'=>[
+                    'class'=>'form-label '
+                ],
             ])
         ;
     }
