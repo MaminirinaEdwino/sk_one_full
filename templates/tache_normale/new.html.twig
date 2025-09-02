@@ -1,11 +1,19 @@
-{% extends 'base.html.twig' %}
+{% extends 'DashBoard.html.twig' %}
 
 {% block title %}New TacheNormale{% endblock %}
 
 {% block body %}
-    <h1>Create new TacheNormale</h1>
+    <div class="card">
+        <div class="card-header">
+            <h1>Create new TacheNormale</h1>
+        </div>
+        <div class="card-body">
+            {{ include('tache_normale/_form.html.twig') }}
+        </div>
+    </div>
+    
 
-    {{ include('tache_normale/_form.html.twig') }}
+    
 
-    <a href="{{ path('app_tache_normale_index') }}">back to list</a>
+    {# <a href="{{ path('app_tache_normale_index') }}">back to list</a> #}
 {% endblock %}

@@ -5,8 +5,10 @@ namespace App\Controller;
 use App\Entity\TacheNormale;
 use App\Form\TacheNormaleType;
 use App\Repository\TacheNormaleRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -23,14 +25,18 @@ final class TacheNormaleController extends AbstractController
     }
 
     #[Route('/new', name: 'app_tache_normale_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, Security $security): Response
     {
         $tacheNormale = new TacheNormale();
         $form = $this->createForm(TacheNormaleType::class, $tacheNormale);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $tacheNormale->setDateCreation(new DateTime('now'));
+            // $tacheNormale->setStatus('')
+            $tacheNormale->setAssignant($security->getUser());
             $entityManager->persist($tacheNormale);
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_tache_normale_index', [], Response::HTTP_SEE_OTHER);

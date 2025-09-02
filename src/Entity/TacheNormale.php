@@ -19,7 +19,7 @@ class TacheNormale
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?\DateTime $dateDebut = null;
 
     #[ORM\Column]
@@ -31,7 +31,7 @@ class TacheNormale
     #[ORM\Column(nullable: true)]
     private ?\DateTime $dateAchevement = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable:true )]
     private ?string $achevement = null;
 
     #[ORM\ManyToOne(inversedBy: 'tacheNormales')]
@@ -41,7 +41,7 @@ class TacheNormale
     private ?User $assignant = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $status = null;
+    private ?string $status = "en cours";
 
     public function getId(): ?int
     {

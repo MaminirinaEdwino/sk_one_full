@@ -17,11 +17,15 @@ class MembreEquipeType extends AbstractType
         $builder
             ->add('membre', EntityType::class, [
                 'class' => User::class,
-                'choice_label' => 'id',
+                'choice_label' => fn(User $membre) => $membre->getEmployee()->getNom(). ' '.$membre->getEmployee()->getPrenom(),
+                'attr'=>['class'=>'form-control'],
+                'label_attr'=>['class'=>'form-label'],
             ])
             ->add('equipe', EntityType::class, [
                 'class' => Equipe::class,
-                'choice_label' => 'id',
+                'choice_label' => 'nom',
+                'attr'=>['class'=>'form-control'],
+                'label_attr'=>['class'=>'form-label']
             ])
         ;
     }

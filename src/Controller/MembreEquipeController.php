@@ -2,11 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Equipe;
 use App\Entity\MembreEquipe;
 use App\Form\MembreEquipeType;
 use App\Repository\MembreEquipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Proxies\__CG__\App\Entity\Equipe;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,7 +24,7 @@ final class MembreEquipeController extends AbstractController
     }
 
     #[Route('/new/{equipe}', name: 'app_membre_equipe_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, Equipe $equipe): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, Equipe $equipe, MembreEquipeRepository $membreRepository): Response
     {
         $membreEquipe = new MembreEquipe();
         $membreEquipe->setEquipe($equipe);
@@ -32,10 +32,13 @@ final class MembreEquipeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($membreEquipe);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_equipe_show', ['equipe'=>$equipe->getId()], Response::HTTP_SEE_OTHER);
+            $tmp = $membreRepository->findBy(['membre'=>$membreEquipe->getMembre(), 'equipe'=>$membreEquipe->getEquipe()]);
+            if (count($tmp) == 0) {
+                $entityManager->persist($membreEquipe);
+                $entityManager->flush();
+            }
+           
+            return $this->redirectToRoute('app_equipe_show', ['id'=>$equipe->getId(), ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('membre_equipe/new.html.twig', [
@@ -70,12 +73,15 @@ final class MembreEquipeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_membre_equipe_delete', methods: ['POST'])]
-    public function delete(Request $request, MembreEquipe $membreEquipe, EntityManagerInterface $entityManager): Response
+    #[Route('/{id}/equipe/{equipe}', name: 'app_membre_equipe_delete', methods: ['POST'])]
+    public function delete(Request $request, MembreEquipe $membreEquipe, EntityManagerInterface $entityManager, Equipe $equipe): Response
     {
         if ($this->isCsrfTokenValid('delete'.$membreEquipe->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($membreEquipe);
             $entityManager->flush();
+            return $this->redirectToRoute('app_equipe_show', [
+                'id'=>$equipe->getId()
+            ]);
         }
 
         return $this->redirectToRoute('app_membre_equipe_index', [], Response::HTTP_SEE_OTHER);

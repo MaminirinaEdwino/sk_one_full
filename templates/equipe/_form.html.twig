@@ -1,4 +1,9 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    {# {{ form_widget(form) }} #}
+    {{ form_row(form.nom) }}
+    <div class="form-check mb-3">
+        {{ form_widget(form.disponible) }}
+        {{ form_label(form.disponible) }}
+    </div>
+    <button class="btn btn-primary">{{ button_label|default('Créer') }}</button>
 {{ form_end(form) }}
