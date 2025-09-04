@@ -1,0 +1,11 @@
+{% extends 'DashBoard.html.twig' %}
+
+{% block title %}New DemandeInterne{% endblock %}
+
+{% block body %}
+    <h1>Formulaire de demande</h1>
+
+    {{ include('demande_interne/_form.html.twig') }}
+
+    {# <a href="{{ path('app_demande_interne_index') }}">back to list</a> #}
+{% endblock %}

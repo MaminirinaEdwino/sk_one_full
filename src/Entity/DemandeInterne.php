@@ -42,6 +42,12 @@ class DemandeInterne
     #[ORM\OneToMany(targetEntity: CommentaireDemande::class, mappedBy: 'demande')]
     private Collection $commentaireDemandes;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $status = null;
+
+    #[ORM\ManyToOne(inversedBy: 'demandeInterneTraite')]
+    private ?User $responsable = null;
+
     public function __construct()
     {
         $this->commentaireDemandes = new ArrayCollection();
@@ -162,6 +168,30 @@ class DemandeInterne
                 $commentaireDemande->setDemande(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?string $status): static
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getResponsable(): ?User
+    {
+        return $this->responsable;
+    }
+
+    public function setResponsable(?User $responsable): static
+    {
+        $this->responsable = $responsable;
 
         return $this;
     }

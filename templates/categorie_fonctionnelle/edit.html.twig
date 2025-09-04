@@ -1,0 +1,13 @@
+{% extends 'DashBoard.html.twig' %}
+
+{% block title %}Edit CategorieFonctionnelle{% endblock %}
+
+{% block body %}
+    <h1>EModifier categorie</h1>
+
+    {{ include('categorie_fonctionnelle/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+    {# <a href="{{ path('app_categorie_fonctionnelle_index') }}">back to list</a> #}
+
+    {{ include('categorie_fonctionnelle/_delete_form.html.twig') }}
+{% endblock %}

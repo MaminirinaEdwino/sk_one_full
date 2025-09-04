@@ -107,6 +107,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: MembreGroupe::class, mappedBy: 'membre')]
     private Collection $membreGroupes;
 
+    /**
+     * @var Collection<int, DemandeInterne>
+     */
+    #[ORM\OneToMany(targetEntity: DemandeInterne::class, mappedBy: 'responsable')]
+    private Collection $demandeInterneTraite;
+
     public function __construct()
     {
         $this->ManagerBus = new ArrayCollection();
@@ -122,6 +128,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->tacheNormales = new ArrayCollection();
         $this->messages = new ArrayCollection();
         $this->membreGroupes = new ArrayCollection();
+        $this->demandeInterneTraite = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -544,6 +551,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($membreGroupe->getMembre() === $this) {
                 $membreGroupe->setMembre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, DemandeInterne>
+     */
+    public function getDemandeInterneTraite(): Collection
+    {
+        return $this->demandeInterneTraite;
+    }
+
+    public function addDemandeInterneTraite(DemandeInterne $demandeInterneTraite): static
+    {
+        if (!$this->demandeInterneTraite->contains($demandeInterneTraite)) {
+            $this->demandeInterneTraite->add($demandeInterneTraite);
+            $demandeInterneTraite->setResponsable($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDemandeInterneTraite(DemandeInterne $demandeInterneTraite): static
+    {
+        if ($this->demandeInterneTraite->removeElement($demandeInterneTraite)) {
+            // set the owning side to null (unless already changed)
+            if ($demandeInterneTraite->getResponsable() === $this) {
+                $demandeInterneTraite->setResponsable(null);
             }
         }
 

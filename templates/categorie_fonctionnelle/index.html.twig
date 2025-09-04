@@ -1,0 +1,41 @@
+{% extends 'DashBoard.html.twig' %}
+
+{% block title %}CategorieFonctionnelle index{% endblock %}
+
+{% block body %}
+<div class="card">
+    <div class="card-header"><h1>CategorieFonctionnelle index</h1></div>
+    <div class="card-body"><table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for categorie_fonctionnelle in categorie_fonctionnelles %}
+            <tr>
+                <td>{{ categorie_fonctionnelle.id }}</td>
+                <td>{{ categorie_fonctionnelle.nom }}</td>
+                <td>
+                    <a href="{{ path('app_categorie_fonctionnelle_show', {'id': categorie_fonctionnelle.id}) }}">show</a>
+                    <a href="{{ path('app_categorie_fonctionnelle_edit', {'id': categorie_fonctionnelle.id}) }}">edit</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('app_categorie_fonctionnelle_new') }}" class='btn btn-primary'>Ajouter une catégorie</a>
+</div>
+</div>
+
+
+
+
+
+{% endblock %}
