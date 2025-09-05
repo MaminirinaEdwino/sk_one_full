@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\CommentaireDemande;
 use App\Entity\DemandeInterne;
+use App\Form\CommentaireDemandeType;
 use App\Form\DemandeInterneType;
 use App\Repository\DemandeInterneRepository;
 use DateTime;
@@ -22,7 +24,7 @@ final class DemandeInterneController extends AbstractController
         return $this->render('demande_interne/index.html.twig', [
             'demande_internes' => $demandeInterneRepository->findAll(),
         ]);
-    }
+    }   
 
     #[Route('/new', name: 'app_demande_interne_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, Security $security): Response
@@ -50,8 +52,13 @@ final class DemandeInterneController extends AbstractController
     #[Route('/{id}', name: 'app_demande_interne_show', methods: ['GET'])]
     public function show(DemandeInterne $demandeInterne): Response
     {
+        $commentaire = new CommentaireDemande();
+        $commentaire->setDemande($demandeInterne);
+        $form = $this->createForm(CommentaireDemandeType::class, $commentaire);
+        
         return $this->render('demande_interne/show.html.twig', [
             'demande_interne' => $demandeInterne,
+            'form'=>$form
         ]);
     }
 

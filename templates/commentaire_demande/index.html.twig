@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CommentaireDemande index{% endblock %}
+
+{% block body %}
+    <h1>CommentaireDemande index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Commentaire</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for commentaire_demande in commentaire_demandes %}
+            <tr>
+                <td>{{ commentaire_demande.id }}</td>
+                <td>{{ commentaire_demande.commentaire }}</td>
+                <td>
+                    <a href="{{ path('app_commentaire_demande_show', {'id': commentaire_demande.id}) }}">show</a>
+                    <a href="{{ path('app_commentaire_demande_edit', {'id': commentaire_demande.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {# <a href="{{ path('app_commentaire_demande_new') }}">Create new</a #}
+{% endblock %}

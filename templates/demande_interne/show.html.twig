@@ -31,12 +31,38 @@
                 <th>DateModif</th>
                 <td>{{ demande_interne.dateModif ? demande_interne.dateModif|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ demande_interne.status ? demande_interne.status : '' }}</td>
+            </tr>
+            <tr>
+                <th>Responsable</th>
+                <td>{{ demande_interne.responsable ? demande_interne.responsable : '' }}</td>
+            </tr>
         </tbody>
     </table>
 
+    <div class="commentaire">
+        {% for row in demande_interne.commentairedemandes %}
+            <div>
+                {{ row.auteur ? row.auteur.employee.nom : '' }}
+                {{ row.auteur ? row.auteur.employee.prenom : '' }}
+                {{ row.commentaire }}
+            </div>
+        {% endfor %}
+    </div>
+    {{ form_start(form, {
+        attr: {
+            'action':  path('app_commentaire_demande_new', {'demande': demande_interne.id})
+        }
+    }) }}
+        {{ form_row(form) }}
+        <button type="submit">Commenter</button>
+    {{ form_end(form) }}
+
     <a href="{{ path('app_demande_interne_index') }}">back to list</a>
 
-    <a href="{{ path('app_demande_interne_edit', {'id': demande_interne.id}) }}">edit</a>
+    <a href="{{ path('app_demande_interne_edit', {'id': demande_interne.id} )  }}">edit</a>
 
     {{ include('demande_interne/_delete_form.html.twig') }}
 {% endblock %}
