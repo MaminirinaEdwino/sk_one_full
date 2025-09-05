@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New DocumentProjet{% endblock %}
+
+{% block body %}
+    <h1>Create new DocumentProjet</h1>
+
+    {{ include('document_projet/_form.html.twig') }}
+
+    <a href="{{ path('app_document_projet_index') }}">back to list</a>
+{% endblock %}

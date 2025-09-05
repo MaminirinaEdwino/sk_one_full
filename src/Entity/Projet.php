@@ -51,9 +51,16 @@ class Projet
     #[ORM\Column(length: 255)]
     private ?string $status = null;
 
+    /**
+     * @var Collection<int, DocumentProjet>
+     */
+    #[ORM\OneToMany(targetEntity: DocumentProjet::class, mappedBy: 'projet')]
+    private Collection $documentProjets;
+
     public function __construct()
     {
         $this->tacheProjets = new ArrayCollection();
+        $this->documentProjets = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -207,6 +214,36 @@ class Projet
     public function setStatus(string $status): static
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, DocumentProjet>
+     */
+    public function getDocumentProjets(): Collection
+    {
+        return $this->documentProjets;
+    }
+
+    public function addDocumentProjet(DocumentProjet $documentProjet): static
+    {
+        if (!$this->documentProjets->contains($documentProjet)) {
+            $this->documentProjets->add($documentProjet);
+            $documentProjet->setProjet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocumentProjet(DocumentProjet $documentProjet): static
+    {
+        if ($this->documentProjets->removeElement($documentProjet)) {
+            // set the owning side to null (unless already changed)
+            if ($documentProjet->getProjet() === $this) {
+                $documentProjet->setProjet(null);
+            }
+        }
 
         return $this;
     }

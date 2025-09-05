@@ -1,0 +1,14 @@
+User : - RH - PDG - DG BU - Manager - Chef de projet - Collaborateur - Admin
+
+| User           | Accèes                                                  |
+| -------------- | ------------------------------------------------------- |
+| RH             | fichiers employés, absences, entrées/sortie, entretiens |
+| PDG            | vue globale, stats consolidés , accès lecture           |
+| DG BU          | vue globale, stats consolidés , accès lecture           |
+| Manager        | Vue sur équipe directe, demandes à valider              |
+| Chef de projet | Vue sur équipe directe, demandes à valider              |
+| Collaboratuer  | Mon profil, mes demandes, mes documents RH              |
+| Admin          | Migerer ny foncitonnalité de base                       |
+
+
+Fonctionn

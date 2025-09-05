@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DocumentProjet index{% endblock %}
+
+{% block body %}
+    <h1>DocumentProjet index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Chemin</th>
+                <th>Tags</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for document_projet in document_projets %}
+            <tr>
+                <td>{{ document_projet.id }}</td>
+                <td>{{ document_projet.nom }}</td>
+                <td>{{ document_projet.chemin }}</td>
+                <td>{{ document_projet.tags }}</td>
+                <td>
+                    <a href="{{ path('app_document_projet_show', {'id': document_projet.id}) }}">show</a>
+                    <a href="{{ path('app_document_projet_edit', {'id': document_projet.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_document_projet_new') }}">Create new</a>
+{% endblock %}
