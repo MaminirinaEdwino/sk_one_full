@@ -3,35 +3,49 @@
 {% block title %}Poste index{% endblock %}
 
 {% block body %}
-    <h1>Poste index</h1>
+<h1>Liste des postes </h1>
+<div class="row">
+    {% for poste in postes %}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <twig:PosteCard poste="{{poste}}" />
+
+    {# <a href="{{ path('app_poste_show', {'id': poste.id}) }}">show</a>
+    <a href="{{ path('app_poste_edit', {'id': poste.id}) }}">edit</a> #}
+
+
+    {% else %}
+    <p>Aucun poste...</p>
+    {% endfor %}
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>actions</th>
+        </tr>
+    </thead>
+    <tbody>
         {% for poste in postes %}
-            <tr>
-                <td>{{ poste.id }}</td>
-                <td>{{ poste.nom }}</td>
-                <td>{{ poste.description }}</td>
-                <td>
-                    <a href="{{ path('app_poste_show', {'id': poste.id}) }}">show</a>
-                    <a href="{{ path('app_poste_edit', {'id': poste.id}) }}">edit</a>
-                </td>
-            </tr>
+        <tr>
+            {#
+            <twig:PosteCard poste="{{poste}}" /> #}
+            <td>{{ poste.id }}</td>
+            <td>{{ poste.nom }}</td>
+            <td>{{ poste.description }}</td>
+            <td>
+                <a href="{{ path('app_poste_show', {'id': poste.id}) }}">show</a>
+                <a href="{{ path('app_poste_edit', {'id': poste.id}) }}">edit</a>
+            </td>
+        </tr>
         {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
+        <tr>
+            <td colspan="4">no records found</td>
+        </tr>
         {% endfor %}
-        </tbody>
-    </table>
+    </tbody>
+</table>
 
-    <a href="{{ path('app_poste_new') }}" class = 'btn btn-primary'>Ajouter un Poste</a>
+<a href="{{ path('app_poste_new') }}" class='btn btn-primary'>Ajouter un Poste</a>
 {% endblock %}

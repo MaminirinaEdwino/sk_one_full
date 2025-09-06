@@ -1,0 +1,109 @@
+:root {
+    --color-post-primary: #3498db;
+    --color-post-secondary: #2ecc71;
+    --color-post-delete: #e74c3c;
+    --color-post-edit: #f39c12;
+    --color-post-text-dark: #2c3e50;
+    --color-post-bg-light: #f5f5f5;
+    --color-post-border-card: #bdc3c7;
+}
+
+/* body {
+    background-color: var(--color-post-bg-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+} */
+
+.internal-post-card {
+    background-color: #fff;
+    border: 1px solid var(--color-post-border-card);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+    margin: 15px;
+    padding: 20px;
+    width: 350px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.internal-post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.internal-post-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-bottom: 1px solid var(--color-post-bg-light);
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.internal-post-icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    color: var(--color-post-primary);
+}
+
+.internal-post-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.internal-post-title {
+    margin: 0;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--color-post-text-dark);
+}
+
+.internal-post-body {
+    margin-bottom: 15px;
+}
+
+.internal-post-description {
+    margin: 0;
+    font-size: 0.9em;
+    color: #7f8c8d;
+    line-height: 1.5;
+}
+
+.internal-post-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.internal-action-btn {
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 0.8em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.details-btn {
+    background-color: var(--color-post-text-dark);
+    color: white;
+}
+.details-btn:hover { background-color: #5a6268; }
+
+.edit-btn {
+    background-color: var(--color-post-edit);
+    color: white;
+}
+.edit-btn:hover { background-color: #d35400; }
+
+.delete-btn {
+    background-color: var(--color-post-delete);
+    color: white;
+}
+.delete-btn:hover { background-color: #c0392b; }

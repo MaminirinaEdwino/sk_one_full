@@ -21,7 +21,7 @@ class Presence
     private ?\DateTime $date = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $status = null;
+    private ?string $status = "absent";
 
     #[ORM\Column]
     private ?\DateTime $heureArrive = null;

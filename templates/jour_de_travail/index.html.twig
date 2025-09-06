@@ -1,0 +1,35 @@
+{% extends 'DashBoard.html.twig' %}
+
+{% block title %}JourDeTravail index{% endblock %}
+
+{% block body %}
+    <h1>JourDeTravail index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Jour</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for jour_de_travail in jour_de_travails %}
+            <tr>
+                <td>{{ jour_de_travail.id }}</td>
+                <td>{{ jour_de_travail.jour ? jour_de_travail.jour|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_jour_de_travail_show', {'id': jour_de_travail.id}) }}">show</a>
+                    <a href="{{ path('app_jour_de_travail_edit', {'id': jour_de_travail.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_jour_de_travail_new') }}">Create new</a>
+{% endblock %}

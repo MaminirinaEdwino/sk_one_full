@@ -1,0 +1,13 @@
+{% extends 'DashBoard.html.twig' %}
+
+{% block title %}Edit JourDeTravail{% endblock %}
+
+{% block body %}
+    <h1>Edit JourDeTravail</h1>
+
+    {{ include('jour_de_travail/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_jour_de_travail_index') }}">back to list</a>
+
+    {{ include('jour_de_travail/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'DashBoard.html.twig' %}
+
+{% block title %}Presence index{% endblock %}
+
+{% block body %}
+    <h1>Presence index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>HeureArrive</th>
+                <th>HeureDepart</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for presence in presences %}
+            <tr>
+                <td>{{ presence.id }}</td>
+                <td>{{ presence.date ? presence.date|date('Y-m-d') : '' }}</td>
+                <td>{{ presence.status }}</td>
+                <td>{{ presence.heureArrive ? presence.heureArrive|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ presence.heureDepart ? presence.heureDepart|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_presence_show', {'id': presence.id}) }}">show</a>
+                    <a href="{{ path('app_presence_edit', {'id': presence.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_presence_new') }}">Create new</a>
+{% endblock %}
