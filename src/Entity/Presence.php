@@ -29,6 +29,9 @@ class Presence
     #[ORM\Column(nullable: true)]
     private ?\DateTime $heureDepart = null;
 
+    #[ORM\ManyToOne(inversedBy: 'presences')]
+    private ?JourDeTravail $jourdetravail = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +93,18 @@ class Presence
     public function setHeureDepart(?\DateTime $heureDepart): static
     {
         $this->heureDepart = $heureDepart;
+
+        return $this;
+    }
+
+    public function getJourdetravail(): ?JourDeTravail
+    {
+        return $this->jourdetravail;
+    }
+
+    public function setJourdetravail(?JourDeTravail $jourdetravail): static
+    {
+        $this->jourdetravail = $jourdetravail;
 
         return $this;
     }

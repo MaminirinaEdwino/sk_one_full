@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/document/projet')]
+#[Route('/documentprojet')]
 final class DocumentProjetController extends AbstractController
 {
     #[Route(name: 'app_document_projet_index', methods: ['GET'])]

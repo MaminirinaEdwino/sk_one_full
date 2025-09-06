@@ -6,6 +6,7 @@ use App\Entity\DocumentProjet;
 use App\Entity\Projet;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,11 +16,13 @@ class DocumentProjetType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('chemin')
-            ->add('tags')
+            ->add('chemin', FileType::class, [
+                'label'=>'Document'
+            ])
+            // ->add('tags')
             ->add('projet', EntityType::class, [
                 'class' => Projet::class,
-                'choice_label' => 'id',
+                'choice_label' => 'nom',
             ])
         ;
     }
