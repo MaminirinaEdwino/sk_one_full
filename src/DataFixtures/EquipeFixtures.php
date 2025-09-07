@@ -12,7 +12,7 @@ class EquipeFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
-        for ($i=0; $i < 5; $i++) { 
+        for ($i=0; $i < 50; $i++) { 
             $equipe  = new Equipe();
             $equipe->setNom($faker->userName());
             $equipe->setDisponible(true);

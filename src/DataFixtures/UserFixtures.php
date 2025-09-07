@@ -21,7 +21,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager ): void
     {
         
-        for ($i=0; $i < 10; $i++) { 
+        for ($i=0; $i < 100; $i++) { 
             $emp = $this->getReference('emp_'.$i, Employee::class);
             $user = new User();
             $user->setEmail($emp->getEmailpro());

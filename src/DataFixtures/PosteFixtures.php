@@ -12,7 +12,7 @@ class PosteFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
-        for ($i=0; $i < 5; $i++) { 
+        for ($i=0; $i < 50; $i++) { 
             $poste = new Poste();
             $poste->setNom($faker->word);
             $poste->setDescription($faker->sentence);

@@ -14,10 +14,10 @@ class BuFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
-        for ($i=0; $i < 5 ; $i++) { 
+        for ($i=0; $i < 10 ; $i++) { 
             $bu = new BU();
             $bu->setNom($faker->company);
-            $bu->setManager($this->getReference('user_'.mt_rand(0,9), User::class));
+            $bu->setManager($this->getReference('user_'.mt_rand(0,99), User::class));
             $this->addReference('bu_'.$i, $bu);
             $manager->persist($bu);
         }

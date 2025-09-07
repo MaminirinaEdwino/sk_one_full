@@ -16,7 +16,7 @@ class EmployeeFixtures extends Fixture implements DependentFixtureInterface
         // $product = new Product();
         // $manager->persist($product);
         $faker = Factory::create('fr_FR');
-        for ($i=0; $i < 10; $i++) { 
+        for ($i=0; $i < 100; $i++) { 
             $emp = new Employee();
             $emp->setNom($faker->name);
             $emp->setPrenom($faker->firstName);
@@ -24,7 +24,7 @@ class EmployeeFixtures extends Fixture implements DependentFixtureInterface
             $phone = $faker->phoneNumber;
             $emp->setTelephone((int) $phone);
             $emp->setAddresse($faker->address());
-            $emp->addPoste($this->getReference('poste_'.mt_rand(0,4), Poste::class));
+            $emp->addPoste($this->getReference('poste_'.mt_rand(0,49), Poste::class));
             $entree = $faker->dateTime('now');
             $emp->setDateEntree($entree);
 
