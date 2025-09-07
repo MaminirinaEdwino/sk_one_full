@@ -1,0 +1,77 @@
+<div{{ attributes }}>
+    <div class="search-container">
+        <div class="search-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+        </div>
+        <input type="text" class="search-input" placeholder="Rechercher un poste..." data-model="debounce(500)|searchValue" data-action="live#action" data-live-action-param="SearchPost">
+        {# <button class="search-btn">Rechercher</button> #}
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Emailpro</th>
+                <th>Telephone</th>
+                <th>Addresse</th>
+                <th>DateEntree</th>
+                <th>DateSortie</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for employee in employees %}
+            <tr>
+                <td>{{ employee.id }}</td>
+                <td>{{ employee.nom }}</td>
+                <td>{{ employee.prenom }}</td>
+                <td>{{ employee.emailpro }}</td>
+                <td>{{ employee.telephone }}</td>
+                <td>{{ employee.addresse }}</td>
+                <td>{{ employee.dateEntree ? employee.dateEntree|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ employee.dateSortie ? employee.dateSortie|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_employee_show', {'id': employee.id}) }}">show</a>
+                    <a href="{{ path('app_employee_edit', {'id': employee.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+   
+
+        <div class="pagination-container">
+            <div class="per-page-selector">
+                <label for="per-page-select">Éléments par page :</label>
+                <div class="select-wrapper">
+                    <select id="per-page-select" class="custom-select" data-model="on(change)|limit" data-action="live#action" data-live-action-param="nextPage" data-live-page-param="{{ 1 }}">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                    <span class="select-arrow">▼</span>
+                </div>
+            </div>
+            
+            <div class="page-navigation">
+                {% if page>1 %}
+                <button class="nav-btn prev-btn" data-action="live#action" data-live-action-param="nextPage"
+                data-live-page-param="{{ page - 1 }}">Précédent</button>
+                {% endif %}
+                <span class="page-number-text">Page {{ page }} sur {{ total }}</span>
+                {% if page<total %}
+                <button class="nav-btn next-btn" data-action="live#action" data-live-action-param="nextPage"
+                data-live-page-param="{{ page + 1 }}">Suivant</button>
+                {% endif %}
+            </div>
+        </div>
+</div>

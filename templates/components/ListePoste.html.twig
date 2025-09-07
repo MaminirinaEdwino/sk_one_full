@@ -1,0 +1,112 @@
+<div{{ attributes }}>
+    <div class="card">
+        <div class="card-header">
+            <h1>Liste des postes </h1>
+            <a href="{{ path('app_poste_new') }}" class='btn btn-primary'>Ajouter un Poste</a>
+        </div>
+        
+        
+
+
+        <div class="card-body">
+            <div class="search-container">
+                <div class="search-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </div>
+                <input type="text" class="search-input" placeholder="Rechercher un poste..." data-model="debounce(500)|searchValue" data-action="live#action" data-live-action-param="SearchPost">
+                {# <button class="search-btn">Rechercher</button> #}
+            </div>
+            <div class="pagination-container">
+                <div class="per-page-selector">
+                    <label for="per-page-select">Éléments par page :</label>
+                    <div class="select-wrapper">
+                        <select id="per-page-select" class="custom-select" data-model="on(change)|item_per_page" data-action="live#action" data-live-action-param="NextPage" data-live-page-param="{{ 1 }}">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                        <span class="select-arrow">▼</span>
+                    </div>
+                </div>
+                
+                <div class="page-navigation">
+                    {% if page>1 %}
+                    <button class="nav-btn prev-btn" data-action="live#action" data-live-action-param="NextPage"
+                    data-live-page-param="{{ page - 1 }}">Précédent</button>
+                    {% endif %}
+                    <span class="page-number-text">Page {{ page }} sur {{ max_pages }}</span>
+                    {% if page<max_pages %}
+                    <button class="nav-btn next-btn" data-action="live#action" data-live-action-param="NextPage"
+                    data-live-page-param="{{ page + 1 }}">Suivant</button>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="" style="display: flex; flex-wrap: wrap; justify-content: space-evenly;">
+
+                {% for poste in postes %}
+                <div class="internal-post-card">
+                    <div class="internal-post-header">
+                        <div class="internal-post-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
+                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                            </svg>
+                        </div>
+                        <h3 class="internal-post-title">{{poste.nom}}</h3>
+                    </div>
+                    <div class="internal-post-body">
+                        <p class="internal-post-description">
+                            {{poste.description}}
+                        </p>
+                    </div>
+                    <div class="internal-post-footer">
+                        <a class="internal-action-btn details-btn" data-post-id="1" href="{{ path('app_poste_show', {'id': poste.id}) }}">Détails</a>
+                        <a class="internal-action-btn edit-btn" data-post-id="1" href="{{ path('app_poste_edit', {'id': poste.id}) }}">Modifier</a>
+                        {# <button class="internal-action-btn delete-btn" data-post-id="1">Supprimer</button> #}
+                    </div>
+            </div>
+
+            {# <a href="{{ path('app_poste_show', {'id': poste.id}) }}">show</a>
+            <a href="{{ path('app_poste_edit', {'id': poste.id}) }}">edit</a> #}
+
+
+            {% else %}
+            <p>Aucun poste...</p>
+            {% endfor %}
+            
+        </div>
+        <div class="pagination-container">
+            <div class="per-page-selector">
+                <label for="per-page-select">Éléments par page :</label>
+                <div class="select-wrapper">
+                    <select id="per-page-select" class="custom-select" data-model="on(change)|item_per_page" data-action="live#action" data-live-action-param="NextPage" data-live-page-param="{{ 1 }}">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                    <span class="select-arrow">▼</span>
+                </div>
+            </div>
+            
+            <div class="page-navigation">
+                {% if page>1 %}
+                <button class="nav-btn prev-btn" data-action="live#action" data-live-action-param="NextPage"
+                data-live-page-param="{{ page - 1 }}">Précédent</button>
+                {% endif %}
+                <span class="page-number-text">Page {{ page }} sur {{ max_pages }}</span>
+                {% if page<max_pages %}
+                <button class="nav-btn next-btn" data-action="live#action" data-live-action-param="NextPage"
+                data-live-page-param="{{ page + 1 }}">Suivant</button>
+                {% endif %}
+            </div>
+        </div>
+       
+    </div>
+    </div>
+    </div>

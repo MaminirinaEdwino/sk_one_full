@@ -2,48 +2,16 @@
 
 
 {% block title %}Employee index{% endblock %}
-
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/pagination.css') }}" rel="stylesheet" type="text/css"> 
+<link rel="stylesheet" href="{{ asset('css/searchBar.css') }}" rel="stylesheet" type="text/css"> 
+{% endblock stylesheets %}
 {% block body %}
 
     <h1>Employee index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>Emailpro</th>
-                <th>Telephone</th>
-                <th>Addresse</th>
-                <th>DateEntree</th>
-                <th>DateSortie</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for employee in employees %}
-            <tr>
-                <td>{{ employee.id }}</td>
-                <td>{{ employee.nom }}</td>
-                <td>{{ employee.prenom }}</td>
-                <td>{{ employee.emailpro }}</td>
-                <td>{{ employee.telephone }}</td>
-                <td>{{ employee.addresse }}</td>
-                <td>{{ employee.dateEntree ? employee.dateEntree|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ employee.dateSortie ? employee.dateSortie|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_employee_show', {'id': employee.id}) }}">show</a>
-                    <a href="{{ path('app_employee_edit', {'id': employee.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="9">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    
+    <twig:ListEmployee />
 
     <a href="{{ path('app_employee_new') }}" class="btn btn-primary">Ajouter employée</a>
 {% endblock %}
