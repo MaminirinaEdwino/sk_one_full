@@ -1,0 +1,57 @@
+<div{{ attributes }}>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Roles</th>
+                {# <th>Password</th> #}
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in list %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                {# <td>{{ user.password }}</td> #}
+                <td>
+                    <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
+                    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="pagination-container">
+        <div class="per-page-selector">
+            <label for="per-page-select">Éléments par page :</label>
+            <div class="select-wrapper">
+                <select id="per-page-select" class="custom-select" data-model="on(change)|limit" data-action="live#action" data-live-action-param="nextPage" data-live-page-param="{{ 1 }}">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+                <span class="select-arrow">▼</span>
+            </div>
+        </div>
+        
+        <div class="page-navigation">
+            {% if page>1 %}
+            <button class="nav-btn prev-btn" data-action="live#action" data-live-action-param="nextPage"
+            data-live-page-param="{{ page - 1 }}">Précédent</button>
+            {% endif %}
+            <span class="page-number-text">Page {{ page }} sur {{ total }}</span>
+            {% if page<total %}
+            <button class="nav-btn next-btn" data-action="live#action" data-live-action-param="nextPage"
+            data-live-page-param="{{ page + 1 }}">Suivant</button>
+            {% endif %}
+        </div>
+    </div>
+</div>

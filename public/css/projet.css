@@ -1,0 +1,137 @@
+:root {
+    --color-blocked: #e74c3c;
+    --color-pending: #f39c12;
+    --color-completed: #2ecc71;
+    --color-in-progress: #3498db;
+    --color-text-dark: #2c3e50;
+    --color-bg-light: #f5f5f5;
+    --color-border-card: #bdc3c7;
+    --color-button-details: #6c757d;
+    --color-button-delete: #dc3545;
+}
+
+/* body {
+    background-color: #34495e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    min-height: 100vh;
+    margin: 0;
+} */
+
+.project-card {
+    background-color: #fff;
+    border: 1px solid var(--color-border-card);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+    margin: 15px;
+    width: 320px;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.project-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--color-border-card);
+}
+
+.project-title {
+    margin: 0;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: var(--color-text-dark);
+}
+
+.project-body {
+    padding: 20px;
+}
+
+.project-description {
+    margin: 0;
+    font-size: 0.9em;
+    color: #7f8c8d;
+    line-height: 1.5;
+}
+
+.project-date-info {
+    padding: 0 20px 10px;
+    font-size: 0.8em;
+    color: #7f8c8d;
+}
+
+.deadline {
+    margin: 0;
+    font-weight: bold;
+}
+
+.time-remaining {
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+/* Couleurs pour les statuts */
+.time-remaining.red { color: var(--color-blocked); font-weight: bold; }
+.time-remaining.green { color: var(--color-completed); font-weight: bold; }
+
+.project-footer {
+    padding: 15px 20px;
+    background-color: #ecf0f1;
+    border-top: 1px solid var(--color-border-card);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+
+.project-status {
+    font-size: 0.85em;
+    font-weight: bold;
+    color: #fff;
+    padding: 5px 12px;
+    border-radius: 15px;
+    margin-right: auto;
+}
+
+/* Styles pour les en-têtes */
+.project-card.blocked .project-header { border-top: 5px solid var(--color-blocked); }
+.project-card.pending .project-header { border-top: 5px solid var(--color-pending); }
+.project-card.completed .project-header { border-top: 5px solid var(--color-completed); }
+.project-card.in-progress .project-header { border-top: 5px solid var(--color-in-progress); }
+
+/* Styles pour les statuts */
+.project-card.blocked .project-status { background-color: var(--color-blocked); }
+.project-card.pending .project-status { background-color: var(--color-pending); }
+.project-card.completed .project-status { background-color: var(--color-completed); }
+.project-card.in-progress .project-status { background-color: var(--color-in-progress); }
+
+/* Styles pour les boutons d'action */
+.project-action-btn {
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    font-size: 12px;
+}
+
+.details-btn {
+    background-color: #6c757d;
+    color: white;
+}
+.details-btn:hover { background-color: #5a6268; }
+
+.delete-btn {
+    background-color: #dc3545;
+    color: white;
+}
+.delete-btn:hover { background-color: #c82333; }
