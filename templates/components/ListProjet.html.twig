@@ -55,7 +55,7 @@
             <span class="time-remaining"> {{ projet.dateDebut ? projet.dateDebut|date('Y-m-d H:i:s') : '' }} </span>
         </div>
         <div class="project-footer">
-            <span class="project-status {{ projet.status | lower == 'pending'? 'En attente' : '' }}
+            <span class="project-status  {{ projet.status | lower == 'pending'? 'En attente' : '' }}
             {{ projet.status | lower == 'en cours'? 'in-progress' : '' }}
             {{ projet.status | lower == 'terminée'? 'completed' : '' }}
             {{ projet.status | lower == 'bloquée'? 'blocked' : '' }}">
@@ -64,6 +64,8 @@
                 {{ projet.status | lower == 'terminée'? 'terminée' : '' }}
                 {{ projet.status | lower == 'bloquée'? 'bloquée' : '' }}
             </span>
+
+            <script></script>
             <a class="project-action-btn details-btn" data-project-id="4" href="{{ path('app_projet_show', {'id': projet.id}) }}">Détails</a>
             {# <a class="project-action-btn delete-btn" data-project-id="4" href="{{ path('app_projet_edit', {'id': projet.id}) }}>Supprimer</a> #}
 

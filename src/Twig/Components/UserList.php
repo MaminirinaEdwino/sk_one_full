@@ -19,7 +19,7 @@ final class UserList
     #[LiveProp(writable:true)]
     public int $total;
     #[LiveProp(writable:true)]
-    
+     
     public int $limit=10;
 
     public array $list = [];
