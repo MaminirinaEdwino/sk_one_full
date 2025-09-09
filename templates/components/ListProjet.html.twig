@@ -38,7 +38,10 @@
 
     <div class="row">
         {% for projet in list %}
-    <div class="project-card in-progress" data-project-id="4" data-deadline="2025-09-10" data-title="Système de paiement" data-description="Intégration d'un nouveau processeur de paiement (Stripe/PayPal) et tests unitaires.">
+    <div class="project-card {{ projet.status | lower == 'en attente'? 'pending' : '' }}
+    {{ projet.status | lower == 'en cours'? 'in-progress' : '' }}
+    {{ projet.status | lower == 'terminée'? 'completed' : '' }}
+    {{ projet.status | lower == 'bloquée'? 'blocked' : '' }}" data-project-id="4" data-deadline="2025-09-10" data-title="Système de paiement" data-description="Intégration d'un nouveau processeur de paiement (Stripe/PayPal) et tests unitaires.">
         <div class="project-header">
             <h3 class="project-title">{{ projet.nom }}</h3>
         </div>
@@ -52,7 +55,10 @@
             <span class="time-remaining"> {{ projet.dateDebut ? projet.dateDebut|date('Y-m-d H:i:s') : '' }} </span>
         </div>
         <div class="project-footer">
-            <span class="project-status in-progress">
+            <span class="project-status {{ projet.status | lower == 'pending'? 'En attente' : '' }}
+            {{ projet.status | lower == 'en cours'? 'in-progress' : '' }}
+            {{ projet.status | lower == 'terminée'? 'completed' : '' }}
+            {{ projet.status | lower == 'bloquée'? 'blocked' : '' }}">
                 {{ projet.status | lower == 'en attente'? 'En attente' : '' }}
                 {{ projet.status | lower == 'en cours'? 'en cours' : '' }}
                 {{ projet.status | lower == 'terminée'? 'terminée' : '' }}
