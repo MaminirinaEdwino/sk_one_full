@@ -4,7 +4,7 @@
 
 		{% for tache_normale in list %}
 			<div 
-				data-title="{{ tache_normale.nom }}" 
+				data-title="{{ tache_normale.snom }}" 
 				data-description="{{ tache_normale.description }}" 
 				data-id="{{ tache_normale.id }}" 
 				data-deadline="{{ tache_normale.dateFin|date('d-m-Y H:i') }}" 
@@ -12,7 +12,7 @@
 				data-debut="{{ tache_normale ? tache_normale.dateDebut|date('d-m-Y H:i') : ""}}" 
 				data-dateachevement="{{ tache_normale.dateAchevement ? tache_normale.dateAchevement|date('d-m-Y H:i') : "" }}" 
 				data-achevement="{{ tache_normale.achevement }}" 
-				data-assigne="{{ tache_normale.assigne.employee.nom }} {{ tache_normale.assigne.employee.prenom }}"
+				data-assigne="{{ tache_normale.assigne.membre.employee.nom }} {{ tache_normale.assigne.membre.employee.prenom }}"
 				data-assignant="{{ tache_normale.assignant.employee.nom }} {{ tache_normale.assignant.employee.prenom }}"
 				class="task-card
 					{% if tache_normale.status == 'en attente' %}
@@ -28,7 +28,7 @@
 					    blocked
 					{% endif %}">
 				<div class="task-header">
-					<h3 class="task-title">{{ tache_normale.nom }}</h3>
+					<h3 class="task-title">{{ tache_normale.snom }}</h3>
 				</div>
 				<div class="task-body">
 					<p>{{ tache_normale.description }}</p>
@@ -162,7 +162,7 @@
                                     `
 	                        }
 							document.getElementById("link-div").innerHTML=`
-							<a href="/tache/normale/${id}/edit" class="btn mt-3 mb-3">Modifier</a>
+							<a href="/tache/projet/${id}/edit" class="btn mt-3 mb-3">Modifier</a>
 							`
 		                });
 		            });
