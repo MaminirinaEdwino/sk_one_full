@@ -1,0 +1,181 @@
+<div{{attributes}}>
+	
+	<div class="row">
+
+		{% for tache_normale in list %}
+			<div 
+				data-title="{{ tache_normale.nom }}" 
+				data-description="{{ tache_normale.description }}" 
+				data-id="{{ tache_normale.id }}" 
+				data-deadline="{{ tache_normale.dateFin|date('d-m-Y H:i') }}" 
+				data-status="{{ tache_normale.status }}" 
+				data-debut="{{ tache_normale ? tache_normale.dateDebut|date('d-m-Y H:i') : ""}}" 
+				data-dateachevement="{{ tache_normale.dateAchevement ? tache_normale.dateAchevement|date('d-m-Y H:i') : "" }}" 
+				data-achevement="{{ tache_normale.achevement }}" 
+				data-assigne="{{ tache_normale.assigne.employee.nom }} {{ tache_normale.assigne.employee.prenom }}"
+				data-assignant="{{ tache_normale.assignant.employee.nom }} {{ tache_normale.assignant.employee.prenom }}"
+				class="task-card
+					{% if tache_normale.status == 'en attente' %}
+					    pending
+					{% endif %}
+					{%  if tache_normale.status == 'en cours' %}
+					    in-progress
+					{% endif %}
+					{%  if tache_normale.status == 'terminée' %}
+					    completed
+					{% endif %}
+					{% if tache_normale.status == 'bloquée' %}
+					    blocked
+					{% endif %}">
+				<div class="task-header">
+					<h3 class="task-title">{{ tache_normale.nom }}</h3>
+				</div>
+				<div class="task-body">
+					<p>{{ tache_normale.description }}</p>
+				</div>
+				<div class="task-footer">
+					<button class="status-button
+						{% if tache_normale.status == 'en attente' %}
+						    pending
+						{% endif %}
+						{%  if tache_normale.status == 'en cours' %}
+						    in-progress
+						{% endif %}
+						{%  if tache_normale.status == 'terminée' %}
+						    completed
+						{% endif %}
+						{% if tache_normale.status == 'bloquée' %}
+						    blocked
+						{% endif %}
+						">
+						{% if tache_normale.status == 'en attente' %}
+							En attente
+						{% endif %}
+						{%  if tache_normale.status == 'en cours' %}
+							En cours
+						{% endif %}
+						{%  if tache_normale.status == 'terminée' %}
+							Terminée
+						{% endif %}
+						{% if tache_normale.status == 'bloquée' %}
+							Bloquée
+						{% endif %}
+
+					</button>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+	<div class="pagination-container">
+		<div class="per-page-selector">
+			<label for="per-page-select">Éléments par page :</label>
+			<div class="select-wrapper">
+				<select id="per-page-select" class="custom-select" data-model="on(change)|limit" data-action="live#action" data-live-action-param="nextPage" data-live-page-param="{{ page }}">
+					<option value="10">10</option>
+					<option value="25">25</option>
+					<option value="50">50</option>
+					<option value="100">100</option>
+				</select>
+				<span class="select-arrow">▼</span>
+			</div>
+		</div>
+
+		<div class="page-navigation">
+			{% if page>1 %}
+				<button class="nav-btn prev-btn" data-action="live#action" data-live-action-param="nextPage" data-live-page-param="{{ page - 1 }}">Précédent</button>
+			{% endif %}
+			<span class="page-number-text">Page
+				{{ page }}
+				sur
+				{{ total }}</span>
+			{% if page<total %}
+				<button class="nav-btn next-btn" data-action="live#action" data-live-action-param="nextPage" data-live-page-param="{{ page + 1 }}">Suivant</button>
+			{% endif %}
+		</div>
+	</div>
+
+	<div id="task-modal" class="modal">
+		<div class="modal-content">
+			<span class="close-button">&times;</span>
+			<h2 id="modal-title"></h2>
+			<p id="modal-description"></p>
+			<p id="modal-assigne"></p>
+			<p id="modal-assignant"></p>
+			
+			<p id="modal-deadline"></p>
+			<p id="modal-debut"></p>
+			<p id="modal-achevement"></p>
+			<p id="modal-status"></p>
+			<div class="modal-status-buttons" id="modal-status-buttons"></div>
+		</div>
+	</div>
+
+	 <script>
+		        document.addEventListener('DOMContentLoaded', () => {
+		            const modal = document.getElementById('task-modal');
+		            const modalTitle = document.getElementById('modal-title');
+		            const modalDescription = document.getElementById('modal-description');
+		            const modalDeadline = document.getElementById('modal-deadline');
+		            const modalDebut = document.getElementById('modal-debut');
+		            const modalAchevement = document.getElementById('modal-achevement');
+		            const modalStatus= document.getElementById('modal-status');
+		            const modalAssigne= document.getElementById('modal-assigne');
+		            const modalAssignant= document.getElementById('modal-assignant');
+		            const closeButton = document.querySelector('.close-button');
+		            const taskCards = document.querySelectorAll('.task-card');
+		            const statusBtn = document.getElementById("modal-status-buttons");
+		
+		            // Gérer l'ouverture de la modale
+		            taskCards.forEach(card => {
+		                card.addEventListener('click', () => {
+		                    const title = card.getAttribute('data-title') ;
+		                    const description = card.getAttribute('data-description');
+		                    const id = card.getAttribute('data-id');
+		                    const deadline = card.getAttribute('data-deadline');
+		                    const debut = card.getAttribute('data-debut');
+		                    const achevement = card.getAttribute('data-achevement');
+		                    const dateAchevement = card.getAttribute('data-dateachevement');
+		                    const status = card.getAttribute('data-status');
+		                    const assigne = card.getAttribute('data-assigne');
+		                    const assignant = card.getAttribute('data-assignant');
+		
+		
+		                    modalTitle.textContent =id+": "+ title;
+		                    modalDescription.textContent = description;
+		                    modalAssigne.textContent = "Assignée à : "+ assigne;
+		                    modalAssignant.textContent = "Par : "+ assignant;
+		                    modalDescription.textContent = description;
+		                    modalAchevement.innerHTML = "Terminée le :"+ dateAchevement +"<br>" +achevement;
+		                    modalDeadline.textContent = "DeadLine : "+ deadline;
+		                    modalDebut.textContent ="Débutée le : " +debut;
+
+		                    // modalStatus.textContent = status;
+		                    modal.style.display = 'block';
+		                    statusBtn.innerHTML = ""
+		                    if (status != "terminée") {
+	                            statusBtn.innerHTML = `
+                                    <button class="change-status-btn blocked-bg" data-action="live#action" data-live-action-param="changeStatusBlock" data-live-id-param="${id}" >Bloqué</button>
+                                    <button class="change-status-btn pending-bg" data-action="live#action" data-live-action-param="changeStatusPending" data-live-id-param="${id}">En attente</button>
+                                    <button class="change-status-btn in-progress-bg" data-action="live#action" data-live-action-param="changeStatusInProgress" data-live-id-param="${id}">En cours</button>
+                                    <button class="change-status-btn completed-bg" data-action="live#action" data-live-action-param="changeStatusCompleted" data-live-id-param="${id}">Terminé</button>
+                                    `
+	                        }
+		                });
+		            });
+		    
+		            // Gérer la fermeture de la modale
+		            closeButton.addEventListener('click', () => {
+		                modal.style.display = 'none';
+		            });
+		    
+		            window.addEventListener('click', (event) => {
+		                if (event.target === modal) {
+		                    modal.style.display = 'none';
+		                }
+		            });
+		    
+		            // Remarque : Le changement de statut via les boutons de la modale nécessiterait une logique
+		            // supplémentaire pour mettre à jour la carte et éventuellement une base de données.
+		        });
+		    </script>
+</div>

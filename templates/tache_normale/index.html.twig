@@ -1,49 +1,26 @@
 {% extends 'DashBoard.html.twig' %}
 
-{% block title %}TacheNormale index{% endblock %}
-
+{% block title %}TacheNormale index
+{% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/pagination.css') }}" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="{{ asset('css/task.css') }}" rel="stylesheet" type="text/css">
+{% endblock stylesheets %}
 {% block body %}
-    <h1>TacheNormale index</h1>
+	.<div class="card">
+		<div class="card-header">
+            <h1>Liste des taches</h1>
+            <a href="{{ path('app_tache_normale_new') }}" class='btn btn-primary'>Ajouter Tâches</a>
+        </div>
+		<div class="card-body">
+            <twig:ListTacheNormal/>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>DateDebut</th>
-                <th>DateFin</th>
-                <th>DateCreation</th>
-                <th>DateAchevement</th>
-                <th>Achevement</th>
-                <th>Status</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for tache_normale in tache_normales %}
-            <tr>
-                <td>{{ tache_normale.id }}</td>
-                <td>{{ tache_normale.nom }}</td>
-                <td>{{ tache_normale.description }}</td>
-                <td>{{ tache_normale.dateDebut ? tache_normale.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ tache_normale.dateFin ? tache_normale.dateFin|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ tache_normale.dateCreation ? tache_normale.dateCreation|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ tache_normale.dateAchevement ? tache_normale.dateAchevement|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ tache_normale.achevement }}</td>
-                <td>{{ tache_normale.status }}</td>
-                <td>
-                    <a href="{{ path('app_tache_normale_show', {'id': tache_normale.id}) }}">show</a>
-                    <a href="{{ path('app_tache_normale_edit', {'id': tache_normale.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="10">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        </div>
+        
+	</div>
+	
+	
 
-    <a href="{{ path('app_tache_normale_new') }}" class = 'btn btn-primary'>Ajouter Tâches</a>
+	
+
 {% endblock %}

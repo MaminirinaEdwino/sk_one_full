@@ -35,6 +35,7 @@ final class TacheNormaleController extends AbstractController
             $tacheNormale->setDateCreation(new DateTime('now'));
             // $tacheNormale->setStatus('')
             $tacheNormale->setAssignant($security->getUser());
+            $tacheNormale->setStatus('en attente');
             $entityManager->persist($tacheNormale);
 
             $entityManager->flush();

@@ -1,0 +1,108 @@
+:root {
+    --color-blocked: #e74c3c;
+    --color-pending: #f39c12;
+    --color-completed: #2ecc71;
+    --color-in-progress: #3498db;
+    --color-text-light: #ecf0f1;
+    --color-text-dark: #2c3e50;
+    --color-bg-light: #f5f5f5;
+    --color-bg-dark: #34495e;
+}
+
+/* body {
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    min-height: 100vh;
+} */
+
+/* Styles des cartes */
+.task-card {
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 15px;
+    width: 300px;
+    font-family: Arial, sans-serif;
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer; /* Ajout d'un curseur pour indiquer qu'on peut cliquer */
+}
+
+.task-card:hover { transform: translateY(-5px); }
+.task-header { margin-bottom: 10px; border-bottom: 2px solid rgba(0,0,0,0.1); padding-bottom: 10px; }
+.task-title { margin: 0; font-size: 1.2em; font-weight: bold; }
+.task-body p { margin: 0; line-height: 1.4; }
+.task-footer { margin-top: 15px; text-align: right; }
+.status-button { border: none; padding: 8px 15px; border-radius: 5px; color: white; font-weight: bold; }
+
+/* Styles des statuts */
+.task-card.blocked { background-color: var(--color-blocked); color: var(--color-text-light); }
+.task-card.blocked .task-body p { color: var(--color-text-light); }
+.status-button.blocked { background-color: #c0392b; }
+
+.task-card.pending { background-color: var(--color-pending); color: var(--color-text-dark); }
+.status-button.pending { background-color: #e67e22; }
+
+.task-card.completed { background-color: var(--color-completed); color: var(--color-text-light); }
+.task-card.completed .task-body p { color: var(--color-text-light); }
+.status-button.completed { background-color: #27ae60; }
+
+.task-card.in-progress { background-color: var(--color-in-progress); color: var(--color-text-light); }
+.task-card.in-progress .task-body p { color: var(--color-text-light); }
+.status-button.in-progress { background-color: #2980b9; }
+
+/* Styles de la modale */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100; /* Assurez-vous qu'elle est au-dessus des autres éléments */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+    background-color: var(--color-bg-light);
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: 10px;
+    width: 500px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    color: var(--color-text-dark);
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal-status-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.change-status-btn {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.blocked-bg { background-color: var(--color-blocked); }
+.pending-bg { background-color: var(--color-pending); }
+.in-progress-bg { background-color: var(--color-in-progress); }
+.completed-bg { background-color: var(--color-completed); }
