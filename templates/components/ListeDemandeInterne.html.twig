@@ -1,0 +1,190 @@
+<div{{attributes}}>
+
+	<div class="card">
+		<div class="card-header">
+			<h1>DemandeInterne index</h1>
+		</div>
+		<div class="card-body">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Titre</th>
+						<th>Description</th>
+						<th>Catégorie</th>
+						<th>Niveau</th>
+						<th>DateEnvoi</th>
+						<th>Status</th>
+						<th>actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for demande_interne in list %}
+						<tr class="data-row" 
+                            data-id="{{ demande_interne.id }}"
+                            data-titre="{{ demande_interne.titre }}"
+                            data-description="{{ demande_interne.description }}"
+                            data-niveau="{{ demande_interne.niveau }}"
+                            data-dateEnvoi="{{ demande_interne.dateEnvoi|date('d-m-Y H:i:s') }}"
+                            data-status="{{ demande_interne.status }}"
+                            data-responsable="{{ demande_interne.status }}"
+
+                            >
+							<td>{{ demande_interne.id }}</td>
+							<td>{{ demande_interne.titre }}</td>
+							<td>{{ demande_interne.description }}</td>
+							<td>{{ demande_interne.categorie }}</td>
+							<td class="
+							{% if demande_interne.niveau =="Bas" %}
+								text-primary
+							{% endif %}
+                            {% if demande_interne.niveau =="Moyen" %}
+								text-success
+							{% endif %}
+                            {% if demande_interne.niveau =="Elevé" %}
+							text-warning
+							{% endif %}
+                            {% if demande_interne.niveau =="Urgent" %}
+							text-danger
+                            {% endif %}
+							"  >
+							{{ demande_interne.niveau }}</td>
+							<td>{{ demande_interne.dateEnvoi ? demande_interne.dateEnvoi|date('Y-m-d H:i:s') : '' }}</td>
+							<td class="
+							{% if demande_interne.status =="En cours" %}
+								text-primary
+							{% endif %}
+                            {% if demande_interne.status =="Traitée" %}
+								text-success
+							{% endif %}
+                            {% if demande_interne.status =="En attente" %}
+							text-warning
+							{% endif %}
+                            {% if demande_interne.status =="Rejetée" %}
+							text-danger
+                            {% endif %}
+							">{{ demande_interne.status }}</td>
+							{# <td>{{ demande_interne.dateModif ? demande_interne.dateModif|date('Y-m-d H:i:s') : '' }}</td> #}
+							<td>
+								<a href="{{ path('app_demande_interne_show', {'id': demande_interne.id}) }}">show</a>
+								<a href="{{ path('app_demande_interne_edit', {'id': demande_interne.id}) }}">edit</a>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="7">no records found</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<div class="pagination-container">
+				<div class="per-page-selector">
+					<label for="per-page-select">Éléments par page :</label>
+					<div class="select-wrapper">
+						<select id="per-page-select" class="custom-select" data-model="on(change)|limit" data-action="live#action" data-live-action-param="nextPage" data-live-page-param="{{ page }}">
+							<option value="10">10</option>
+							<option value="25">25</option>
+							<option value="50">50</option>
+							<option value="100">100</option>
+						</select>
+						<span class="select-arrow">▼</span>
+					</div>
+				</div>
+
+				<div class="page-navigation">
+					{% if page>1 %}
+						<button class="nav-btn prev-btn" data-action="live#action" data-live-action-param="nextPage" data-live-page-param="{{ page - 1 }}">Précédent</button>
+					{% endif %}
+					<span class="page-number-text">Page
+						{{ page }}
+						sur
+						{{ total }}</span>
+					{% if page<total %}
+						<button class="nav-btn next-btn" data-action="live#action" data-live-action-param="nextPage" data-live-page-param="{{ page + 1 }}">Suivant</button>
+					{% endif %}
+				</div>
+
+				<div id="task-modal" class="modal">
+					<div class="modal-content">
+						<span class="close-button">&times;</span>
+						<h2 id="modal-title"></h2>
+						<p id="modal-description"></p>
+						<p id="modal-niveau"></p>
+						<p id="modal-status"></p>
+						<p id="modal-dateEnvoi"></p>
+						<div class="modal-status-buttons" id="modal-status-buttons"></div>
+						<div id="link-div"></div>
+					</div>
+				</div>
+
+				 <script>
+		    document.addEventListener('DOMContentLoaded', () => {
+		        const modal = document.getElementById('task-modal');
+		        const modalTitle = document.getElementById('modal-title');
+		        const modalDescription = document.getElementById('modal-description');
+                const modalNiveau = document.getElementById('modal-niveau');
+                const modalStatus = document.getElementById('modal-status');
+                const modalDateEnvoi = document.getElementById('modal-dateEnvoi');
+
+
+		        const closeButton = document.querySelector('.close-button');
+		        const taskCards = document.querySelectorAll('.data-row');
+		        const statusBtn = document.getElementById("modal-status-buttons");
+	
+		        // Gérer l'ouverture de la modale
+		        taskCards.forEach(card => {
+		            card.addEventListener('click', () => {
+		                const titre = card.getAttribute('data-titre') ;
+		                const description = card.getAttribute('data-description');
+		                const id = card.getAttribute('data-id');
+                        const niveau = card.getAttribute("data-niveau");
+                        const status = card.getAttribute('data-status');
+                        const dateEnvoi = card.getAttribute('data-dateEnvoi');
+
+		    
+	
+	
+		                modalTitle.textContent =id+" : "+ titre;
+		                modalDescription.textContent = description;
+		                modalNiveau.textContent = "Niveau : "+niveau;
+                        modalStatus.textContent = "Status : "+status;
+                        modalDateEnvoi.textContent = "Envoyée le "+ dateEnvoi
+
+		                // modalStatus.textContent = status;
+		                modal.style.display = 'block';
+		                statusBtn.innerHTML = ""
+		                if (status != "terminée") {
+		                    statusBtn.innerHTML = `
+		                        <button class="change-status-btn blocked-bg" data-action="live#action" data-live-action-param="rejected" data-live-id-param="${id}" >Rejeter</button>
+
+		                        <button class="change-status-btn pending-bg" data-action="live#action" data-live-action-param="pending" data-live-id-param="${id}">En attente</button>
+
+		                        <button class="change-status-btn in-progress-bg" data-action="live#action" data-live-action-param="progressing" data-live-id-param="${id}">En cours</button>
+
+		                        <button class="change-status-btn completed-bg" data-action="live#action" data-live-action-param="completed" data-live-id-param="${id}">Traitée</button>
+		                        `
+					                        }
+											document.getElementById("link-div").innerHTML=`
+											<a href="/tache/projet/${id}/edit" class="btn mt-3 mb-3">Modifier</a>
+											`
+						                });
+						            });
+						    
+						            // Gérer la fermeture de la modale
+						            closeButton.addEventListener('click', () => {
+						                modal.style.display = 'none';
+						            });
+						    
+						            window.addEventListener('click', (event) => {
+						                if (event.target === modal) {
+						                    modal.style.display = 'none';
+						                }
+						            });
+						        });
+						    </script>
+			</div>
+		</div>
+	</div>
+
+
+</div>

@@ -1,43 +1,13 @@
 {% extends 'DashBoard.html.twig' %}
 
-{% block title %}DemandeInterne index{% endblock %}
-
+{% block title %}DemandeInterne index
+{% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/pagination.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/task.css') }}" rel="stylesheet" type="text/css">
+{% endblock stylesheets %}
 {% block body %}
-    <h1>DemandeInterne index</h1>
+	<twig:ListeDemandeInterne/>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Titre</th>
-                <th>Description</th>
-                <th>Niveau</th>
-                <th>DateEnvoi</th>
-                <th>DateModif</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for demande_interne in demande_internes %}
-            <tr>
-                <td>{{ demande_interne.id }}</td>
-                <td>{{ demande_interne.titre }}</td>
-                <td>{{ demande_interne.description }}</td>
-                <td>{{ demande_interne.niveau }}</td>
-                <td>{{ demande_interne.dateEnvoi ? demande_interne.dateEnvoi|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ demande_interne.dateModif ? demande_interne.dateModif|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_demande_interne_show', {'id': demande_interne.id}) }}">show</a>
-                    <a href="{{ path('app_demande_interne_edit', {'id': demande_interne.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_demande_interne_new') }}" class = 'btn btn-primary'>Envoyer Demande</a>
+	<a href="{{ path('app_demande_interne_new') }}" class='btn btn-primary'>Envoyer Demande</a>
 {% endblock %}

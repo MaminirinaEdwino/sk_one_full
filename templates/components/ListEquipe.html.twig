@@ -1,0 +1,66 @@
+<div{{attributes}}>
+	<div class="card mb-3">
+		<div class="card-header">
+			<h1>Equipe index</h1>
+		</div>
+		<div class="card-body">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Nom</th>
+                        <th>Nombre Membre</th>
+						{# <th>Disponible</th> #}
+						<th>actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for equipe in list %}
+						<tr>
+							<td>{{ equipe.id }}</td>
+							<td>{{ equipe.nom }}</td>
+							<td>{{ equipe.membreEquipes|length }}</td>
+							{# <td>{{ equipe.disponible }}</td> #}
+							<td>
+								<a href="{{ path('app_equipe_show', {'id': equipe.id}) }}">show</a>
+								<a href="{{ path('app_equipe_edit', {'id': equipe.id}) }}">edit</a>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="4">no records found</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+			<div class="pagination-container">
+				<div class="per-page-selector">
+					<label for="per-page-select">Éléments par page :</label>
+					<div class="select-wrapper">
+						<select id="per-page-select" class="custom-select" data-model="on(change)|limit" data-action="live#action" data-live-action-param="nextPage" data-live-page-param="{{ page }}">
+							<option value="10">10</option>
+							<option value="25">25</option>
+							<option value="50">50</option>
+							<option value="100">100</option>
+						</select>
+						<span class="select-arrow">▼</span>
+					</div>
+				</div>
+
+				<div class="page-navigation">
+					{% if page>1 %}
+						<button class="nav-btn prev-btn" data-action="live#action" data-live-action-param="nextPage" data-live-page-param="{{ page - 1 }}">Précédent</button>
+					{% endif %}
+					<span class="page-number-text">Page
+						{{ page }}
+						sur
+						{{ total }}</span>
+					{% if page<total %}
+						<button class="nav-btn next-btn" data-action="live#action" data-live-action-param="nextPage" data-live-page-param="{{ page + 1 }}">Suivant</button>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
